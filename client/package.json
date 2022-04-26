@@ -21,6 +21,8 @@
     "@nuxtjs/dotenv": "1.4.1",
     "@nuxtjs/style-resources": "^1.2.1",
     "axios": "0.21.1",
+    "cookie-universal-nuxt": "^2.1.5",
+    "js-cookie": "^3.0.1",
     "nuxt": "2.15.6",
     "swiper": "^6.6.2",
     "vue-awesome-swiper": "4.1.1"

@@ -6,7 +6,7 @@ export const mutations = {
 
 export const actions = {
   async getData({ commit }) {
-    const { data } = await this.$axios.get('/categories/')
+    const { data } = await this.$axios.get('/categories/?active=true')
     commit('setData', data)
   }
 }

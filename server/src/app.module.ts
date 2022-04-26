@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common'
+import { Global, Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import { TypeOrmModule } from '@nestjs/typeorm'
 import { CategoriesModule } from './categories/categories.module'
@@ -8,7 +8,10 @@ import { ProductsModule } from './products/products.module'
 import { ServeStaticModule } from '@nestjs/serve-static'
 import * as path from 'path'
 import { SettingsModule } from './settings/settings.module'
+import { JwtModule } from '@nestjs/jwt'
+import { UsersModule } from './users/users.module'
 
+@Global()
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -27,11 +30,19 @@ import { SettingsModule } from './settings/settings.module'
       autoLoadEntities: true,
       logging: true
     }),
+    JwtModule.register({
+      secret: process.env.SECRET_KEY || 'SECRET',
+      signOptions: {
+        expiresIn: '24h'
+      }
+    }),
     CategoriesModule,
     ProductsModule,
     FiltersModule,
     FilesModule,
-    SettingsModule
+    SettingsModule,
+    UsersModule
   ],
+  exports: [JwtModule]
 })
 export class AppModule {}

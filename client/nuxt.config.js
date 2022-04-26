@@ -1,7 +1,7 @@
 import router from './router.js'
 
 module.exports = {
-  router: router,
+  router,
   head: {
     meta: [
       { charset: 'utf-8' },
@@ -13,7 +13,8 @@ module.exports = {
   modules: [
     '@nuxtjs/axios',
     '@nuxtjs/dotenv',
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
+    'cookie-universal-nuxt',
   ],
   css: [
     '@/styles/reset.sass',

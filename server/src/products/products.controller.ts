@@ -1,5 +1,6 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UploadedFiles, UseInterceptors } from '@nestjs/common'
+import { Body, Controller, Delete, Get, Param, Patch, Post, Query, UploadedFiles, UseGuards, UseInterceptors } from '@nestjs/common'
 import { FilesInterceptor } from '@nestjs/platform-express'
+import { AuthGuard } from 'src/guards/auth.guard'
 import { ProductsCreatedDto, ProductsUpdatedDto } from './products.dto'
 import { ProductsService } from './products.service'
 
@@ -19,6 +20,7 @@ export class ProductsController {
     return this.service.getOne(p.id)
   }
 
+  @UseGuards(AuthGuard)
   @Post()
   @UseInterceptors(
     FilesInterceptor('files', 10)
@@ -27,6 +29,7 @@ export class ProductsController {
     return this.service.create(b, files)
   }
 
+  @UseGuards(AuthGuard)
   @Patch(':id')
   @UseInterceptors(
     FilesInterceptor('files', 10)
@@ -35,6 +38,7 @@ export class ProductsController {
     return this.service.update(p.id, b, files)
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':id')
   delete(@Param() p) {
     return this.service.delete(p.id)

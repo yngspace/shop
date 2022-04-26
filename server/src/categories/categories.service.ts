@@ -14,10 +14,11 @@ export class CategoriesService {
   ) {}
 
   getAll(query): Promise<CategoriesEntity[]> {
-    const { active } = query
+    const { active, admin } = query
     if (active === 'true' || active === 'false') {
       return this.repository.find({ where: { active } })
     }
+    if (admin) return this.repository.find({ relations: ['filters'] })
 
     return this.repository.find()
   }
