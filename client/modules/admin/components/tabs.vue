@@ -8,8 +8,9 @@ export default {
   data() {
     return {
       tabList: [
-        { name: 'Категории', value: 'categories' },
-        { name: 'Товары', value: 'products' }
+        { name: 'Категории', value: 'Categories' },
+        { name: 'Товары', value: 'Products' },
+        { name: 'Настройки', value: 'Settings' }
       ]
     }
   },

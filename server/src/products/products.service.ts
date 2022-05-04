@@ -20,15 +20,15 @@ export class ProductsService {
   ) {}
 
   async queryBuilder(query): Promise<{ [code: string]: string }> {
-    const { categories, filters } = query
-    if (filters && !categories) throwHttpException(HttpStatus.BAD_REQUEST, 'Не указана категория')
+    const { categories, type } = query
+    if (type && !categories) throwHttpException(HttpStatus.BAD_REQUEST, 'Не указана категория')
 
     const params: { [code: string]: string } = {}
 
     if (categories) params.categories = categories
-    if (filters) {
+    if (type) {
       const currentFilter = (await this.filtersService.getAll(categories)
-      ).filter(item => item.value === filters)
+      ).filter(item => item.value === type)
 
       if (!currentFilter.length) throwHttpException(HttpStatus.NOT_FOUND, 'Не найдено')
       const { id } = currentFilter[0]

@@ -3,19 +3,23 @@
     AuthForm(v-if="!check" @onauth="onAuth")
     .container(v-else)
       Tabs(@click="changeTab")
-      Categories(v-if="activeTab === 'categories'")
+      component(:is="activeTab")
 </template>
 
 <script>
 import AuthForm from './components/auth-form.vue'
 import Tabs from './components/tabs.vue'
 import Categories from './components/categories/index.vue'
+import Products from './components/products/index.vue'
+import Settings from './components/settings/index.vue'
 
 export default {
   components: {
     AuthForm,
     Tabs,
-    Categories
+    Categories,
+    Products,
+    Settings
   },
   // layout: 'admin',
   async asyncData({ $cookies, $axios }) {
