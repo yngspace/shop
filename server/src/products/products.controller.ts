@@ -22,20 +22,14 @@ export class ProductsController {
 
   @UseGuards(AuthGuard)
   @Post()
-  @UseInterceptors(
-    FilesInterceptor('files', 10)
-  )
-  create(@Body() b: ProductsCreatedDto, @UploadedFiles() files) {
-    return this.service.create(b, files)
+  create(@Body() b: ProductsCreatedDto) {
+    return this.service.create(b)
   }
 
   @UseGuards(AuthGuard)
   @Patch(':id')
-  @UseInterceptors(
-    FilesInterceptor('files', 10)
-  )
-  update(@Param() p, @Body() b: ProductsUpdatedDto, @UploadedFiles() files) {
-    return this.service.update(p.id, b, files)
+  update(@Param() p, @Body() b: ProductsUpdatedDto) {
+    return this.service.update(p.id, b)
   }
 
   @UseGuards(AuthGuard)

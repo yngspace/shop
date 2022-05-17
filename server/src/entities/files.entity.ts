@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, OneToMany, PrimaryColumn, PrimaryGeneratedColumn } from 'typeorm'
+import { Entity, ManyToOne, PrimaryColumn } from 'typeorm'
 import { ProductsEntity } from './products.entity'
 
 @Entity('files')
@@ -8,6 +8,6 @@ export class FilesEntity {
   })
   name: string
 
-  @ManyToOne(() => ProductsEntity, x => x.id, { onDelete: 'CASCADE' })
-  products: string
+  @ManyToOne(() => ProductsEntity, x => x.photos, { onDelete: 'SET NULL' })
+  products: ''
 }

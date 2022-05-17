@@ -16,9 +16,6 @@ class SettingsCreatedDto {
 }
 
 class SettingsUpdatedDto {
-  @IsUUID()
-  id: string
-
   @IsPhoneNumber('RU')
   phone: string
 

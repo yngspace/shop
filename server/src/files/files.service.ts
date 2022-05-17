@@ -21,28 +21,22 @@ export class FilesService {
     return this.repository.find()
   }
 
-  async create(files: any[], body: any) {
-    if (!files.length) return
-    try {
-      const { products } = body
-      if (products) await this.productsService.getOne(products)
-      const result = []
-      files.forEach(async (file) => {
-        const array = file.originalname.split('.')
-        const extension = array[array.length - 1]
-        const newName = uuid.v4()
-        const fileName = `${newName}.${extension}`
-        const filePath = path.resolve(__dirname, '..', 'static')
-        if (!fs.existsSync(filePath)) {
-          fs.mkdirSync(filePath, { recursive: true })
-        }
-        fs.writeFileSync(path.join(filePath, fileName), file.buffer)
-        await this.repository.save({ name: fileName, products })
-          .then(x => result.push(x))
-          .catch(() => fs.unlinkSync(filePath + '/' + fileName))
-      })
+  getByPk(id: string) {
+    return this.repository.findOne({ where: { name: id } })
+  }
 
-      return result
+  async create(file: any) {
+    try {
+      const array = file.originalname.split('.')
+      const extension = array[array.length - 1]
+      const newName = uuid.v4()
+      const fileName = `${newName}.${extension}`
+      const filePath = path.resolve(__dirname, '..', 'static')
+      if (!fs.existsSync(filePath)) {
+        fs.mkdirSync(filePath, { recursive: true })
+      }
+      fs.writeFileSync(path.join(filePath, fileName), file.buffer)
+      return await this.repository.save({ name: fileName })
     } catch (e) {
       throwHttpException(HttpStatus.INTERNAL_SERVER_ERROR, 'Ошибка в обработке файла')
     }

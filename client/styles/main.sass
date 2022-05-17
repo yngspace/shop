@@ -1,31 +1,140 @@
 @import url(https://fonts.googleapis.com/css?family=Montserrat:100,200,300,regular,500,600,700,800,900,100italic,200italic,300italic,italic,500italic,600italic,700italic,800italic,900italic)
+@import './vars'
 
 html, body
   font-family: Montserrat
-  color: $color-text
-  scroll-behavior: auto
-  scroll-behavior: smooth
-  
+  font-size: 20px
+  color: $t-color
+
+html, body
+  background: #fff
+
 .container
   max-width: 1440px
   margin: 0 auto
   padding: 0 20px
 
 .screen
-  position: relative
-  overflow: hidden
-
-.page-screen
-  position: relative
   overflow: hidden
   min-height: 100vh
-  margin: 60px 0 40px
 
-.primary-button
+.screen__page
+  padding-top: 40px
+  padding-bottom: 40px
+
+.default-button
   display: flex
   justify-content: center
-  padding: 12px 22px
-  border-radius: 8px
-  background: $dark-green
-  color: #fff
+  align-items: center
+  column-gap: 8px
+  padding: 0 20px
+  height: $input-height
+  max-width: max-content
+  font-size: 20px
   font-weight: 500
+  color: #fff
+  background: $g-color
+  border-radius: calc($step / 2)
+  transition: .3s
+.primary-button
+  @extend .default-button
+  background: $p-color
+.red-button
+  @extend .primary-button
+  background: $r-color  
+
+.circle-button
+  display: flex
+  justify-content: center
+  align-items: center
+  width: 40px
+  height: 40px
+  font-size: 26px
+  border-radius: 50%
+  color: #fff
+  background: $g-color
+  &:disabled
+    background: $lg-color
+
+.add-button
+  @extend .circle-button
+  background: $p-color
+
+.remove-button
+  @extend .circle-button
+  background: $r-color
+
+.catalog-icon
+  position: relative
+  display: flex
+  align-items: center
+  width: 16px
+  height: 18px
+  .catalog-icon__line
+    background: #fff
+    width: 100%
+    height: 2px
+    transition: transform .3s
+  .catalog-icon__line--1
+    position: absolute
+    top: 0
+  .catalog-icon__line--2
+    opacity: 1
+    transition: opacity .3s
+  .catalog-icon__line--3
+    position: absolute
+    bottom: 0
+.catalog-icon--trigger
+  .catalog-icon__line--1
+    transform: rotate(45deg) translate(5px, 5px)
+  .catalog-icon__line--2
+    opacity: 0
+  .catalog-icon__line--3
+    transform: rotate(-45deg) translate(6px, -6px)
+
+.default-product-img
+  content: url('../assets/img/default-product.svg')
+  height: 100%
+  width: 100%
+  object-fit: cover
+  object-position: center
+
+.default-input
+  position: relative
+  display: flex
+  flex-direction: column
+  justify-content: space-between
+  border: 1px solid $lg-color
+  border-radius: calc($step / 2)
+  height: $input-height
+  background: #fff
+  padding: 6px 12px
+  width: 420px
+  &:focus-within
+    border-color: $p-color
+    .default-input__show-password, .default-input__top
+      color: $p-color
+  &.error
+    border-color: $r-color
+  input
+    background: transparent
+.default-input__top
+  display: flex
+  justify-content: space-between
+  font-size: 10px
+  margin-bottom: 6px
+  color: $g-color
+  transition: color .3s
+.default-input__error
+  color: $r-color
+.default-input__show-password
+  position: absolute
+  right: 12px
+  bottom: 12px
+  color: $g-color
+  font-size: 10px
+  cursor: pointer
+  transition: color .3s
+
+.hidden-input-file-container
+  position: relative

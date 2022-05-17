@@ -25,9 +25,9 @@ export class SettingsService {
     return this.repository.save(body)
   }
 
-  async update(id: string, body: SettingsUpdatedDto) {
-    const result = await this.repository.findOne({ where: { id } })
-    if (!result) throwHttpException(HttpStatus.NOT_FOUND, 'Не найдено')
-    return this.repository.save(body)
+  async update(body: SettingsUpdatedDto) {
+    const result = await this.repository.findOne()
+    if (result) return await this.repository.save(body).then(() => this.repository.delete(result))
+    else return this.repository.save(body)
   }
 }

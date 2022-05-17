@@ -1,0 +1,23 @@
+@import '@/styles/vars'
+
+.default-pagination
+  display: flex
+  justify-content: center
+  align-items: center
+  column-gap: 12px
+  font-size: 16px
+  width: 100%
+.default-pagination__arrow
+  opacity: 1
+  transition: opacity .3s
+  &.disabled
+    visibility: hidden
+    opacity: 0
+    path
+      fill: $g-color
+.default-pagination__arrow--next
+  transform: rotate(180deg)
+.default-pagination__page
+  transition: color .3s
+  &.active
+    color: $p-color

@@ -1,0 +1,13 @@
+{
+  "name": "aqua-shop",
+  "version": "1.0.0",
+  "repository": "git@github.com:yngspace/shop.git",
+  "author": "Laptev <s.laptev@apptimizm.pro>",
+  "license": "MIT",
+  "scripts": {
+    "dev": "concurrently \"yarn --cwd ./server dev\" \"yarn --cwd ./client dev\""
+  },
+  "devDependencies": {
+    "concurrently": "^7.1.0"
+  }
+}

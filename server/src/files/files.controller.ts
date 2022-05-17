@@ -1,5 +1,5 @@
-import { Body, Controller, Delete, Get, Param, Post, UploadedFiles, UseInterceptors } from '@nestjs/common'
-import { FilesInterceptor } from '@nestjs/platform-express'
+import { Controller, Delete, Get, Param, Post, UploadedFile, UseInterceptors } from '@nestjs/common'
+import { FileInterceptor } from '@nestjs/platform-express'
 import { FilesService } from './files.service'
 
 @Controller('/api/files')
@@ -13,12 +13,17 @@ export class FilesController {
     return this.service.getAll()
   }
 
+  @Get(':id')
+  getOne(@Param() p) {
+    return this.service.getByPk(p.id)
+  }
+
   @Post()
   @UseInterceptors(
-    FilesInterceptor('files', 10)
+    FileInterceptor('file')
   )
-  create(@UploadedFiles() files, @Body() b) {
-    return this.service.create(files, b)
+  create(@UploadedFile() file) {
+    return this.service.create(file)
   }
 
   @Delete(':name')

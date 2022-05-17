@@ -1,43 +1,42 @@
-Установить `cookiecutter`
+# Nuxt 3 Minimal Starter
 
-```
-pip3 install cookiecutter
-```
+Look at the [nuxt 3 documentation](https://v3.nuxtjs.org) to learn more.
 
-или
+## Setup
 
-```
-apt install cookiecutter
-```
+Make sure to install the dependencies:
 
-подробнее [здесь](https://cookiecutter.readthedocs.io/en/1.7.2/installation.html)
+```bash
+# yarn
+yarn install
 
-Инициализировать проект, указав его название
+# npm
+npm install
 
-```
-cookiecutter git+ssh://git@git.apptimizm.pro/templates/nuxt-site-template.git
-```
-
-Далее ребуется указать текущее название репозитория и группы с подгруппами если такие имеются
-
-```
-test@machine:~/app$ cookiecutter git+ssh://git@git.apptimizm.pro/templates/nuxt-site-template.git              # Первая комманда всегда вот такая
-project_name [nuxt_template]: example_front                                                                    # Название проекта точно согласно названию репозитория        
-project_group [project_group]: group_example/subgroup_example                                                  # Тут указываем либо просто группу либо группу с подгруппами как в этом случае
+# pnpm
+pnpm install --shamefully-hoist
 ```
 
-Далее привязать проект к нужному репозиторию
+## Development Server
 
-```
-cd example_front
-git init
-git remote add origin REPOSITORY_URL
-git add .
-git commit -m "Initial commit"
-git push -u origin master
+Start the development server on http://localhost:3000
+
+```bash
+npm run dev
 ```
 
-Если вы хотит что-то добавить/исправить в шаблоне - оформите мержреквест
+## Production
 
-Если вы хотите внести изменения в процесс разработки, 
-обсудите их в группе бэкенда в телеграмме и сделайте их в вики проекта
+Build the application for production:
+
+```bash
+npm run build
+```
+
+Locally preview production build:
+
+```bash
+npm run preview
+```
+
+Checkout the [deployment documentation](https://v3.nuxtjs.org/docs/deployment) for more information.

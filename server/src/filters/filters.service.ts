@@ -38,10 +38,10 @@ export class FiltersService {
       if (currentFilters.filter(x => x.value === value).length) {
         throwHttpException(HttpStatus.BAD_REQUEST, 'Фильтр с таким именем существует в категории')
       }
-      return this.repository.save({ ...body, value })
+      return this.repository.save({ name, value, categories })
     }
 
-    return this.repository.save(body)
+    return this.repository.save({ name, value, categories })
   }
 
   async update(id: string, body: FiltersUpdatedDto) {

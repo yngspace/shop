@@ -1,0 +1,94 @@
+@import '@/styles/vars'
+
+.header
+  padding: 20px 0 0
+  border-bottom: 2px solid $g-color
+  .header__row
+    display: flex
+    align-items: center
+    column-gap: 30px
+
+  .header__row-top
+    justify-content: flex-end
+    font-size: 14px
+    margin-bottom: 14px
+    .header__item
+      display: flex
+      align-items: center
+      column-gap: 8px
+      &::before
+        height: 14px
+
+  .header__item--time
+    &::before
+      content: url('@/assets/img/time-icon.svg')
+  .header__item--email
+    &::before
+      content: url('@/assets/img/email-icon.svg')
+  .header__item--address
+    &::before
+      content: url('@/assets/img/address-icon.svg')
+
+  .header__item--search
+    flex-grow: .5
+    padding: 0 8px
+  .header__item--logo
+    color: $p-color
+    font-size: 32px
+    font-weight: 700
+  .header__item--cart
+    margin-left: auto
+  .header__item--button
+    .active
+      pointer-events: none
+
+  .header-nav
+    margin: 20px 0
+  .header-nav__list
+    display: flex
+    justify-content: center
+    align-items: center
+    column-gap: 30px
+    transition: color .3s
+  .header-nav__item
+    &.active
+      color: $p-color
+
+  .nav-categories
+    position: absolute
+    left: 0
+    height: 40vh
+    width: 100%
+    padding: 30px 0
+    background: #fff
+    box-shadow: 0 2px 3px 0 rgb(0 0 0 / 20%)
+    z-index: -10
+    opacity: 0
+    transform: translateX(-100%)
+    transition: .3s
+    &.active
+      transform: translateX(0)
+      opacity: 1
+      z-index: 100
+    .container
+      display: grid
+      grid-template-columns: 300px 1fr
+  .nav-categories__left
+    display: flex
+    flex-direction: column
+    gap: 8px
+    overflow: auto
+    max-height: calc(40vh - 60px)
+  .nav-categories__right
+    display: flex
+    flex-wrap: wrap
+    gap: 30px
+    overflow: auto
+  .nav-categories__left-item
+    transition: color .3s
+    &.active
+      color: $p-color
+  .nav-categories__right-item
+    transition: color .3s
+    &.active
+      color: $p-color

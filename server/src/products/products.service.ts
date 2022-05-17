@@ -39,6 +39,7 @@ export class ProductsService {
   }
 
   async getAll(query): Promise<any> {
+    const { admin } = query
     const params = await this.queryBuilder(query)
     const page = parseInt(query.page) || 1
     const perPage = parseInt(query.perPage) || 9
@@ -46,6 +47,7 @@ export class ProductsService {
       take: perPage,
       skip: page === 1 ? 0 : (page - 1) * perPage,
       where: params,
+      relations: admin ? ['filters', 'categories'] : []
     })
 
     return {
@@ -53,6 +55,7 @@ export class ProductsService {
       next: count > (page * perPage),
       prev: page !== 1 ? true : false,
       page,
+      perPage,
       result
     }
   }
@@ -63,7 +66,14 @@ export class ProductsService {
     return result
   }
 
-  async create(body: ProductsCreatedDto, files) {
+  async create(body: ProductsCreatedDto) {
+    if (body.photos.length) {
+      await body.photos.some(async (item) => {
+        const result = await this.filesService.getByPk(item.name)
+        if (!result) throwHttpException(HttpStatus.NOT_FOUND, 'NOT FOUND')
+      })
+    }
+
     if (body.categories && body.categories !== '') {
       await this.categoriesService.getBySlug(body.categories)
     }
@@ -71,19 +81,29 @@ export class ProductsService {
       await this.filtersService.getOne(body.filters)
     }
 
-    const result = await this.repository.save(body)
-    await this.filesService.create(files, { products: result.id })
+    const result = await this.repository.save({
+      name: body.name,
+      description: body.description,
+      price: body.price,
+      categories: body.categories,
+      filters: body.filters
+    })
+
     return result
   }
 
-  async update(id: string, body: ProductsUpdatedDto, files): Promise<ProductsEntity> {
+  async update(id: string, body: ProductsUpdatedDto): Promise<ProductsEntity> {
     const result = await this.getOne(id)
-    await this.filesService.create(files, { products: result.id })
     if (result.categories !== body.categories && body.categories !== null) {
       await this.categoriesService.getBySlug(body.categories)
     }
+
     if (result.filters !== body.filters && body.filters !== null) {
-      await this.filtersService.getOne(body.filters)
+      try {
+        await this.filtersService.getOne(body.filters)
+      } catch {
+        throwHttpException(HttpStatus.BAD_REQUEST, 'BAD REQUEST')
+      }
     }
 
     return this.repository.save(body)

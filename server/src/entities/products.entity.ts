@@ -23,6 +23,6 @@ export class ProductsEntity {
   @ManyToOne(() => FiltersEntity, x => x.id, { onDelete: 'SET NULL' })
   filters: string
 
-  @OneToMany(() => FilesEntity, x => x.products, { eager: true, onDelete: 'CASCADE' })
+  @OneToMany(() => FilesEntity, x => x.products, { onDelete: 'CASCADE', eager: true })
   photos: FilesEntity[]
 }

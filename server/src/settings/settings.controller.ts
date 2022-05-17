@@ -21,8 +21,8 @@ export class SettingsController {
   }
 
   @UseGuards(AuthGuard)
-  @Patch(':id')
-  update(@Param() p, @Body() b: SettingsUpdatedDto) {
-    return this.service.update(p.id, b)
+  @Patch()
+  update(@Body() b: SettingsUpdatedDto) {
+    return this.service.update(b)
   }
 }

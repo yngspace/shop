@@ -1,5 +1,6 @@
 import { IsNotEmpty, IsUUID } from 'class-validator'
 import { IS_EMPTY } from 'src/const'
+import { FilesEntity } from 'src/entities/files.entity'
 
 class ProductsCreatedDto {
   @IsNotEmpty({ message: IS_EMPTY })
@@ -10,6 +11,8 @@ class ProductsCreatedDto {
 
   @IsNotEmpty({ message: IS_EMPTY })
   price: number
+
+  photos: FilesEntity[]
 
   categories: string
 
@@ -28,6 +31,8 @@ class ProductsUpdatedDto {
 
   @IsNotEmpty({ message: IS_EMPTY })
   price: number
+
+  photos: FilesEntity[]
 
   categories: string
 

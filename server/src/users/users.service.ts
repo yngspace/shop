@@ -17,17 +17,12 @@ export class UsersService {
 
   async findUser(req): Promise<GetUserDto|HttpException> {
     const { id } = req.user
-    console.log(req.user)
 
     const response = await this.usersRepository.findOne({ where: { id } })
     if (!response) thorwUnauthError()
 
     const user = new GetUserDto(response)
     return user
-  }
-
-  async create(body: CreateUserDto) {
-    return await this.usersRepository.save(body)
   }
 
   async login(body: LoginUserDto) {
